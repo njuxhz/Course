@@ -1,0 +1,40 @@
+<h3 class="xhz_title">选课管理</h3>
+
+<div>
+    <div class="xhz_function" style="left: 20px">
+        <button class="btn btn-block btn-info xhz_btn">添加</button>
+        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 150px;margin-top: -33px;">导入</button>
+    </div>
+</div>
+
+<div class="xhz_table">
+    <table border="1" style="margin: 0px auto;">
+        <tr>
+            <th style="width: 150px;height: 35px;">学号</th>
+            <th style="width: 150px;">姓名</th>
+            <th style="width: 150px;">专业</th>
+            <th style="width: 320px;">操作</th>
+        </tr>
+        <tr ng-repeat="item in data">
+            <td height="35px;">{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.major}}</td>
+            <td>
+                <div class="xhz_edit">
+                    <button class="btn btn-block btn-info xhz_btn">删除</button>
+                    <button class="btn btn-block btn-info xhz_btn" style="margin-left: 110px;margin-top: -34px">编辑</button>
+                    <button class="btn btn-block btn-info xhz_btn" style="margin-left: 220px;margin-top: -34px">成绩</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+<div>
+    <div class="xhz_function" style="right: 20px;">
+        <button class="btn btn-block btn-info xhz_btn">上一页</button>
+        <h3 style="margin-left: 120px;margin-top: -30px;">{{page}}</h3>
+        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 160px;margin-top: -39px;">下一页</button>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+.xhz_title {
+    text-align: center;
+}
+
+.xhz_function {
+    position: absolute;
+}
+
+.xhz_btn {
+    width: 100px;
+}
+
+.xhz_table {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.xhz_edit {
+    position: absolute;
+    margin-top: -17px;
+}
