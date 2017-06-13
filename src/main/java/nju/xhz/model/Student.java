@@ -30,8 +30,25 @@ public class Student implements Serializable{
     @Column(name = "total")
     private float total;
 
+    public Student(){}
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Student(String id, String name, String major) {
+        this.id = id;
+        this.name = name;
+        this.major = major;
+        this.regular = this.project = this.fin = 0;
+    }
+
+    public Student(String id, String name, String major,
+                   float regular, float project, float fin, float total) {
+        this.id = id;
+        this.name = name;
+        this.major = major;
+        this.regular = regular;
+        this.project = project;
+        this.fin = fin;
+        this.total = total;
+    }
 
     public String getId() {
         return id;

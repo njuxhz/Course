@@ -16,11 +16,7 @@ public class StudentController {
     @GetMapping("/student")
     @ResponseBody
     public List<Student> get() {
-        System.out.println("jyb");
         List<Student> studentList = studentService.getAllStudents();
-        for(Student s : studentList) {
-            System.out.println(s.getId());
-        }
         return studentList;
     }
 
@@ -29,7 +25,19 @@ public class StudentController {
     public int add(@RequestParam(value = "id",defaultValue = "0") String id,
                     @RequestParam(value = "name",defaultValue = "xhz") String name,
                     @RequestParam(value = "major",defaultValue = "computer") String major) {
-        System.out.println(id + " " + name + " " + major);
+        boolean isOK = studentService.findById(id);
+        if(isOK) {
+            Student s = new Student(id, name, major);
+            studentService.saveStudent(s);
+            return 1;
+        }
+        return 0;
+    }
+
+    @DeleteMapping("/student")
+    @ResponseBody
+    public int delete(@RequestParam(value = "id",defaultValue = "0") String id) {
+        studentService.deleteStudent(id);
         return 1;
     }
 
@@ -37,8 +45,15 @@ public class StudentController {
     @ResponseBody
     public int update(@RequestParam(value = "id",defaultValue = "0") String id,
                    @RequestParam(value = "name",defaultValue = "xhz") String name,
-                   @RequestParam(value = "major",defaultValue = "computer") String major) {
-        System.out.println("xhz " + id + " " + name + " " + major);
+                   @RequestParam(value = "major",defaultValue = "computer") String major,
+                   @RequestParam(value = "regular",defaultValue = "0") String regular,
+                   @RequestParam(value = "project",defaultValue = "0") String project,
+                   @RequestParam(value = "final",defaultValue = "0") String fin,
+                   @RequestParam(value = "total",defaultValue = "0") String total) {
+        studentService.deleteStudent(id);
+        Student s = new Student(id, name, major, Float.parseFloat(regular), Float.parseFloat(project),
+                Float.parseFloat(fin), Float.parseFloat(total));
+        studentService.saveStudent(s);
         return 1;
     }
 }
