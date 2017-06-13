@@ -7,12 +7,15 @@ angular.module('xhz.controller', ['myservice'])
     $scope.editInfoShow = false;
     $scope.isLoading = true;
     $scope.leftPage = $scope.rightPage = true;
-
+    $scope.page = 1;
     $scope.tmp = {};
 
-	$scope.data = [{'id': '131220074', 'name': 'xhz', 'major': 'computer'},
-        {'id': '131220168', 'name': 'jyb', 'major': 'computer'}];
-	$scope.page = 1;
+	/*$scope.data = [{'id': '131220074', 'name': 'xhz', 'major': 'computer'},
+        {'id': '131220168', 'name': 'jyb', 'major': 'computer'}];*/
+
+	xhzService.getStudentsAsyn().then(function () {
+	    $scope.data = xhzService.getStudents();
+    });
 
     $scope.showEditInfo = function (item) {
         $scope.tmp = {};
