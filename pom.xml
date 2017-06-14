@@ -57,6 +57,18 @@
 			<artifactId>spring-batch-core</artifactId>
 			<version>3.0.2.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.11</version>
+			<optional>true</optional>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

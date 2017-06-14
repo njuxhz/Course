@@ -3,7 +3,14 @@
 <div>
     <div class="xhz_function" style="left: 20px">
         <button class="btn btn-block btn-info xhz_btn" ng-click="showAdd()">添加</button>
-        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 150px;margin-top: -33px;" ng-click="showFile()">导入</button>
+        <button class="btn btn-block btn-info xhz_btn xhz_upload" style="margin-left: 150px;margin-top: -33px;" ng-click="showFile()">
+            导入</button>
+
+        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 420px;margin-top: -33px;" ng-show="leftPage" ng-click="left()">
+            上一页</button>
+        <h3 style="margin-left: 530px;margin-top: -30px;">{{page}}</h3>
+        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 560px;margin-top: -39px;" ng-show="rightPage" ng-click="right()">
+            下一页</button>
     </div>
 </div>
 
@@ -28,17 +35,6 @@
             </td>
         </tr>
     </table>
-</div>
-
-<br/>
-<div>
-    <div class="xhz_function" style="right: 20px;">
-        <button class="btn btn-block btn-info xhz_btn" ng-show="leftPage" ng-click="left()">上一页</button>
-        <h3 style="margin-left: 120px;margin-top: -30px;">{{page}}</h3>
-        <button class="btn btn-block btn-info xhz_btn" style="margin-left: 160px;margin-top: -39px;" ng-show="rightPage" ng-click="right()">
-            下一页
-        </button>
-    </div>
 </div>
 
 <div class="xhz_score" ng-show="scoreShow">

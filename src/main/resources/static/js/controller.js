@@ -168,9 +168,30 @@ angular.module('xhz.controller', ['myservice'])
     };
 
     $scope.confirmFile = function () {
+        $scope.isLoading = true;
         var file = document.querySelector('input[type=file]').files[0];
         xhzService.uploadFileAsyn(file).then(function () {
+            $scope.data = [];
+            $scope.data = xhzService.getStudents();
+            $scope.show = [];
+
+            var dateStart = new Date(), dateEnd;
+            while( ((dateEnd = new Date()) - dateStart) <= 200){
+            }
+
+            if($scope.data.length <= 10*$scope.page) {
+                for(var i = 10*($scope.page - 1); i < $scope.data.length; i++) {
+                    $scope.show.push($scope.data[i]);
+                }
+                $scope.rightPage = false;
+            }else {
+                for(var i = 10*($scope.page - 1); i < 10*$scope.page; i++) {
+                    $scope.show.push($scope.data[i]);
+                }
+                $scope.rightPage = true;
+            }
             $scope.fileShow = false;
+            $scope.isLoading = false;
         });
     };
 

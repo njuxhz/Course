@@ -1,5 +1,10 @@
 package nju.xhz.controller;
 
+import nju.xhz.batch.excel.poi.PoiItemReader;
+import nju.xhz.model.Student;
+import nju.xhz.service.IStudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,16 +17,36 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 @Controller
 public class FileController {
+    @Autowired
+    private IStudentService studentService;
+
     @PostMapping("/file")
     @ResponseBody
-    public void upload(@RequestParam("file") MultipartFile file) {
+    public List<Student> upload(@RequestParam("file") MultipartFile file) {
+        File f = null;
+        try {
+            f=File.createTempFile("tmp", null);
+            file.transferTo(f);
+            f.deleteOnExit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         String[] springConfig  = { "batch/job.xml" };
         ApplicationContext context = new ClassPathXmlApplicationContext(springConfig);
 
         JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
         Job job = (Job) context.getBean("uploadJob");
+
+        FileSystemResource res = new FileSystemResource(f);
+        PoiItemReader reader = (PoiItemReader) context.getBean("studentReader");
+        reader.setResource(res);
 
         try {
             JobExecution execution = jobLauncher.run(job, new JobParameters());
@@ -31,14 +56,7 @@ public class FileController {
         }
         System.out.println("Done");
 
-        /*if (file.isEmpty()) {
-            System.out.println("empty");
-        }
-        // 获取文件名
-        String fileName = file.getOriginalFilename();
-        System.out.println("上传的文件名为：" + fileName);
-        // 获取文件的后缀名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println("上传的后缀名为：" + suffixName);*/
+        List<Student> studentList = studentService.getAllStudents();
+        return studentList;
     }
 }

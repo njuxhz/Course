@@ -113,7 +113,7 @@ app.factory('xhzService', function($http, $q){
             return deferred.promise;
         },
         uploadFileAsyn : function (file) {
-            alert(file);
+            students = [];
             var deferred = $q.defer();
             var fd = new FormData();
             fd.append('file', file);
@@ -124,6 +124,18 @@ app.factory('xhzService', function($http, $q){
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity
             }).success(function (response) {
+                for(var i = 0; i < response.length; i++) {
+                    var item = {
+                        'id' : response[i].id,
+                        'name' : response[i].name,
+                        'major' : response[i].major,
+                        'regular' : response[i].regular,
+                        'project' : response[i].project,
+                        'final' : response[i].fin,
+                        'total' : response[i].total
+                    }
+                    students.push(item);
+                }
                 deferred.resolve(response);
             }).error(function (response, status, headers, config){
             });
